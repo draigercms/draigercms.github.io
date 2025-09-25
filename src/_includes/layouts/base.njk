@@ -1,0 +1,37 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>{{ title or metadata.title }}</title>
+        <meta name="description" content="{{ description or metadata.description }}">
+        <link rel="stylesheet" href="/style.out.css"/>
+        <meta name="generator" content="{{ eleventy.generator }}">
+    </head>
+    <body class="flex flex-col min-h-screen antialiased bg-slate-700">
+        {% if metadata.navLinks | length %}
+            <nav class="p-4 text-xs tracking-widest uppercase bg-slate-800" data-sb-field-path={{ [siteConfigFilePath, ":navLinks"] | join }} aria-label="Navigation menu">
+                <ul class="flex flex-row max-w-4xl gap-6 mx-auto">
+                    {%- for entry in metadata.navLinks %}
+                        <li>
+                            <a class="font-medium {% if page.url | trimTrailingSlash == entry.url | trimTrailingSlash %}text-slate-500{% else %} text-slate-400 transition hover:text-slate-500{% endif %}" href="{{ entry.url }}" {% if page.url | trimTrailingSlash == entry.url | trimTrailingSlash %} aria-current="page" {% endif %} data-sb-field-path={{ [".", loop.index0] | join }}>{{ entry.label }}</a>
+                        </li>
+                    {%- endfor %}
+                </ul>
+            </nav>
+        {% endif %}
+        <header class="flex justify-center px-4 py-12 sm:py-16">
+            <a href="/" class="px-6 py-3 text-xl font-bold text-center text-white bg-red-400 sm:text-2xl sm:px-10 sm:py-5" data-sb-field-path={{ [siteConfigFilePath, ":title"] | join  }}>{{ metadata.title }}</a>
+        </header>
+        <main class="px-4 grow">
+            <div class="max-w-4xl mx-auto mb-16 sm:mb-24">
+                {{ content | safe }}
+            </div>
+        </main>
+        {% if metadata.copyrightText %}
+            <footer class="px-4 pb-16 sm:pb-24">
+                <div class="max-w-4xl mx-auto prose-sm prose text-center prose-slate prose-invert" data-sb-field-path={{ [siteConfigFilePath, ":copyrightText"] | join  }}>{{ metadata.copyrightText | markdown | safe }}</div>
+            </footer>
+        {% endif %}
+    </body>
+</html>

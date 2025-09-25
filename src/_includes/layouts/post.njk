@@ -1,0 +1,40 @@
+---
+layout: layouts/base.njk
+---
+
+<article class="bg-white" data-sb-object-id={{ page.inputPath | sbObjectId }}>
+    {% if image %}
+        <figure>
+            <img src="{{ image | url }}" class="w-full" eleventy:widths="960" eleventy:formats="webp" alt="{{ title }} image" data-sb-field-path="image" />
+        </figure>
+    {% endif %}
+    <div class="px-4 pt-12 pb-16 sm:pt-16 sm:pb-24">
+        <header class="max-w-2xl mx-auto mb-8 text-center">
+            <h1 class="mb-2 text-3xl font-bold uppercase sm:text-4xl text-slate-800" data-sb-field-path="title">{{ title }}</h1>
+            <time class="text-sm text-slate-400" datetime="{{ page.date | htmlDateString }}" data-sb-field-path="date">{{ page.date | readableDate }}</time>
+        </header>
+        <div class="max-w-2xl mx-auto prose prose-slate" data-sb-field-path="markdown_content">
+            {{ content | safe }}
+        </div>
+    </div>
+</article>
+{%- if collections.posts %}
+    {%- set previousPost = collections.posts | getPreviousCollectionItem %}
+    {%- set nextPost = collections.posts | getNextCollectionItem %}
+    {%- if nextPost or previousPost %}
+        <nav class="mt-1 text-xs tracking-widest text-white uppercase bg-slate-600">
+            <ul class="flex flex-wrap w-full p-4 gap-x-8 gap-y-2">
+                {%- if previousPost %}
+                    <li class="flex-1 w-full text-left">
+                        <a class="transition hover:text-slate-200 text-nowrap" href="{{ previousPost.url }}">← Previous</a>
+                    </li>
+                {% endif %}
+                {%- if nextPost %}
+                    <li class="flex-1 w-full text-right">
+                        <a class="transition hover:text-slate-200 text-nowrap" href="{{ nextPost.url }}">Next →</a>
+                    </li>
+                {% endif %}
+            </ul>
+        </nav>
+    {%- endif %}
+{%- endif %}

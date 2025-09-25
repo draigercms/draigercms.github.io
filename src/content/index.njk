@@ -1,0 +1,41 @@
+---js
+const latestPostsCount = 3;
+---
+
+{% if metadata.hero %}
+    <section class="flex flex-col w-full mb-1 bg-white sm:flex-row{% if metadata.hero.image == nil %} px-4{% endif %}" data-sb-field-path={{ [siteConfigFilePath, ":hero"] | join  }}>
+        <div class="flex-1 w-full py-12 text-center {% if metadata.hero.image %}px-4 sm:px-8 sm:text-left{% else %}max-w-2xl mx-auto sm:py-16{% endif %}">
+            {% if metadata.hero.title %}
+                <h1 class="mb-4 text-3xl font-bold uppercase sm:text-4xl text-slate-800" data-sb-field-path=".title">{{ metadata.hero.title }}</h1>
+            {% endif %}
+            {% if metadata.hero.text %}
+                <div class="prose max-w-none prose-slate" data-sb-field-path=".text">
+                    {{ metadata.hero.text | markdown | safe }}
+                </div>
+            {% endif %}
+        </div>
+        {% if metadata.hero.image %}
+            <figure class="flex-1 w-full">
+                <img class="object-cover w-full h-full" src={{ metadata.hero.image.src | url }} eleventy:widths="640" eleventy:formats="webp" loading="lazy" decoding="async" alt="{{ metadata.hero.image.alt }}" data-sb-field-path=".image.src" />
+            </figure>
+        {% endif %}
+    </section>
+{% endif %}
+
+{% set postsCount = collections.posts | length %}
+{% set latestPostsCount = postsCount | min(latestPostsCount) %}
+<div class="flex flex-wrap justify-between w-full p-4 mb-1 text-xs font-medium tracking-widest text-white uppercase bg-slate-600 gap-x-6 gap-y-2">
+    <p>Latest {{ latestPostsCount }} Post{% if latestPostsCount != 1 %}s{% endif%} &darr;</p>
+    <a class="text-white underline transition decoration-1 underline-offset-4 decoration-white hover:decoration-slate-400" href="/blog">View all posts &rarr;</a>
+</div>
+
+{% set postslist = collections.posts | head(-1 * latestPostsCount) %}
+{% set postslistCounter = postsCount %}
+{% include "postslist.njk" %}
+
+{% set morePosts = postsCount - latestPostsCount %}
+{% if morePosts > 0 %}
+    <div class="p-4 mt-1 text-xs font-medium tracking-widest text-white uppercase bg-slate-600">
+        {{ morePosts }} more post{% if morePosts != 1 %}s{% endif %} can be found in <a class="text-white underline transition decoration-1 underline-offset-4 decoration-white hover:decoration-slate-400" href="blog.njk">the archive</a>.
+    </div>
+{% endif %}

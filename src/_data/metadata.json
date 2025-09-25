@@ -1,0 +1,30 @@
+{
+    "type": "Config",
+    "title": "Eleventy Blog Starter",
+    "url": "https://example.com/",
+    "description": "Explore the Eleventy Starter with Netlify demo",
+    "navLinks": [
+        {
+            "label": "Home",
+            "url": "/"
+        },
+        {
+            "label": "Blog",
+            "url": "/blog"
+        },
+        {
+            "label": "Eleventy + Netlify ↗",
+            "url": "https://docs.netlify.com/frameworks/eleventy/"
+        }
+    ],
+    "hero": {
+        "type": "Hero",
+        "title": "Designer, Frontend Developer & Mentor",
+        "text": "I’m a developer and UX/UI designer based in the U.S. with extensive experience in digital consulting. Passionate about minimal and brutalist design, I draw inspiration from nature, art, and a good cup of coffee.\n\n[Learn more](https://docs.netlify.com/frameworks/eleventy/)\n",
+        "image": {
+            "src": "/images/person.jpg",
+            "alt": "Alt text"
+        }
+    },
+    "copyrightText": "© 2024 Eleventy Blog Starter. All rights reserved."
+}
