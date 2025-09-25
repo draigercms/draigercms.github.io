@@ -1,7 +1,7 @@
 {
-  "name": "eleventy-blog-starter",
+  "name": "draiger-cms",
   "version": "1.0.0",
-  "description": "A blog template using the Eleventy site generator.",
+  "description": "Project Eleventy.",
   "type": "module",
   "scripts": {
     "dev": "npx @11ty/eleventy --serve --port 3000 && npx tailwindcss -i ./src/css/styles.css -o ./public/style.out.css --watch",
