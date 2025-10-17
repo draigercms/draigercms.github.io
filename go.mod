@@ -1,4 +1,4 @@
-module github.com/google/docsy-example
+module github.com/draigercms/draigercms.github.io
 
 go 1.12
 
